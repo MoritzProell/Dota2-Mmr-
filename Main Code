@@ -1,0 +1,84 @@
+"""
+Author        : Moritz Proell
+Course        : DS2000: Programming with Data
+Filename      : 
+Creation date : Wed Jun  5 17:13:36 2024
+
+Description   :
+
+
+"""
+
+strength_attribute = []
+agility_attribute = []
+intelligence_attribute = []
+
+import matplotlib.pyplot as plt
+import statistics
+
+#1. Making the request
+import requests
+import json
+
+url = "https://api.opendota.com/api/players/123290798/rankings"
+
+nate = 194017041
+nick = 194554437
+david = 435511842
+moritz = 123290798
+
+
+
+match_response = requests.get(url)
+
+#2. Checking the resposne
+print(match_response.status_code)
+
+
+#3.Converting to JSON
+json_match_data = match_response.json()
+
+
+#200, sucess!
+#301
+#404 requires authentication
+#403 forbidden, currently dont have high enough permission to access
+#503, down or too many requests
+
+
+
+
+print(json_match_data)
+
+
+score_list = [i["score"] for i in json_match_data]
+hero_id_list = [i["hero_id"] for i in json_match_data]
+
+
+
+#= median(score_list)
+
+#avg(hero)
+
+print(hero_id_list)
+
+plt.scatter(hero_id_list, score_list)
+
+#title name
+
+if "194017041" in url:
+    name = "nate"
+elif "194554437" in url:
+    name = "nick"
+elif "435511842" in url:
+    name = "david"
+else:
+    name = "Moritz"
+    
+plt.title(name + "'s Mmr by Hero ID")
+
+
+#{'hero_id': 52, 'score': 4392.83844648265, 'percent_rank': 0.926060606060606, 'card': 3300000}
+
+
+22
